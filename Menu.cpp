@@ -36,6 +36,28 @@ int snake[8][8] = {
   { 0, 0, 1, 1, 1, 1, 0, 0 }
 };
 
+int tetris[8][8] = {
+  { 0, 0, 0, 0, 0, 0, 0, 0 },
+  { 0, 0, 0, 0, 0, 0, 0, 0 },
+  { 0, 1, 1, 1, 1, 1, 1, 0 },
+  { 0, 1, 1, 1, 1, 1, 1, 0 },
+  { 0, 0, 0, 1, 1, 0, 0, 0 },
+  { 0, 0, 0, 1, 1, 0, 0, 0 },
+  { 0, 0, 0, 1, 1, 0, 0, 0 },
+  { 0, 0, 0, 0, 0, 0, 0, 0 }
+};
+
+int arcanoid[8][8] = {
+  { 0, 1, 1, 1, 1, 1, 1, 0 },
+  { 0, 1, 1, 1, 1, 1, 1, 0 },
+  { 0, 0, 0, 0, 0, 0, 0, 0 },
+  { 0, 0, 0, 1, 0, 0, 0, 0 },
+  { 0, 0, 0, 0, 0, 0, 0, 0 },
+  { 0, 0, 1, 1, 1, 1, 0, 0 },
+  { 0, 0, 0, 0, 0, 0, 0, 0 },
+  { 0, 0, 0, 0, 0, 0, 0, 0 }
+};
+
 void menu() {
   // Ліва половина — стрілка
   for (int i = 0; i < 8; i++) {
@@ -55,11 +77,29 @@ void menu() {
     }
   }
 
-  if (modeSelect() == 1) {
+  else if (modeSelect() == 1) {
     for (int i = 0; i < 8; i++) {
       for (int j = 0; j < 8; j++) {
         gb.wipePoint(i, j + 8);
         gb.setLed(i, j + 8, snake[j][i]);
+      }
+    }
+  }
+
+  else if (modeSelect() == 2) {
+    for (int i = 0; i < 8; i++) {
+      for (int j = 0; j < 8; j++) {
+        gb.wipePoint(i, j + 8);
+        gb.setLed(i, j + 8, tetris[j][i]);
+      }
+    }
+  }
+
+  else if (modeSelect() == 3) {
+    for (int i = 0; i < 8; i++) {
+      for (int j = 0; j < 8; j++) {
+        gb.wipePoint(i, j + 8);
+        gb.setLed(i, j + 8, arcanoid[j][i]);
       }
     }
   }
@@ -69,11 +109,11 @@ int modeSelect() {
   if (gb.getKey() == 4) {
     modeCount++;
     delay(250);
-    if (modeCount > 1) modeCount = 0;
+    if (modeCount > 3) modeCount = 0;
   } else if (gb.getKey() == 5) {
     modeCount--;
     delay(250);
-    if (modeCount < 0) modeCount = 1;
+    if (modeCount < 0) modeCount = 3;
   }
   return modeCount;
 }
